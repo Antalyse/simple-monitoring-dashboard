@@ -43,23 +43,7 @@ Installation
 
     pip install fastapi uvicorn pyyaml aiohttp jinja2
 
-3.  Project Structure
 
-    Ensure your directory looks like this:
-
-    .
-
-    ├── config.yaml
-
-    ├── main.py
-
-    └── templates/
-
-    ├── dashboard.html
-
-    └── partials/
-
-    └── grid.html
 
 Configuration (`config.yaml`)
 -----------------------------
@@ -141,37 +125,9 @@ You can trigger immediate checks without waiting for the scheduled interval.
 
     GET /check/now?target=production_api&type=single
 
-Customization
--------------
 
-To add custom checks (e.g., checking a specific TCP port or looking for a JSON response), modify `main.py`:
-
-1.  Define a new async function:
-
-    Python
-
-    ```
-    async def check_tcp(host, warning_threshold, timeout_threshold):
-        # Your custom logic here
-        return is_up, status_text, message, latency
-
-    ```
-
-2.  Register it in the `CHECK_FUNCTIONS` dictionary:
-
-    Python
-
-    ```
-    CHECK_FUNCTIONS = {
-        "default": check_default,
-        "tcp": check_tcp
-    }
-
-    ```
-
-3.  Use `check: tcp` in your `config.yaml`.
 
 License
 -------
 
-MIT License
+Apache 2.0 License
