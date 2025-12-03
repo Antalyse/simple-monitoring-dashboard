@@ -16,6 +16,7 @@ CONFIG = {}
 SYSTEM_STATUS = {} 
 CONFIG_FILE = "config/config.yaml"
 LAST_CONFIG_TIME = 0
+LOG_FILE = "logs.txt"
 
 # Sort Order: Critical (0) -> Unknown (1) -> Warning (2) -> OK (3)
 STATUS_PRIORITY = {
@@ -26,6 +27,10 @@ STATUS_PRIORITY = {
     "PENDING": 4,
     "DISABLED": 5  # <--- New Lowest Priority
 }
+
+def log(message: str):
+    with open(LOG_FILE, "a") as f:
+        f.write(message + '\n')
 
 def load_config():
     """Loads config and preserves status for existing hosts"""
@@ -115,10 +120,15 @@ async def perform_check(sys_id: str):
     # Determine status
     is_up, status_text, msg, latency = await check_func(sys_conf['host'], warn_sec, timeout_sec)
     
+    last_check = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    if not is_up:
+        log(f"{last_check};{status_text};{sys_conf['host']};{msg}")
+    
     if sys_id in SYSTEM_STATUS:
         SYSTEM_STATUS[sys_id].update({
             "status": status_text, # UP, DOWN, WARNING, UNKNOWN
-            "last_check": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "last_check": last_check,
             "latency": latency,
             "message": msg
         })

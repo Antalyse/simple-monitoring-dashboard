@@ -4,9 +4,9 @@ systems:
     name: Google
     description: Checks the main page of Google
     docs: https://wiki.mycompany.com/host01
-    host: google.com
-    interval: 60
+    host: aivoicecleaner.com
+    interval: 6
     warning: 10  
-    timeout: 30    # Set low to test Purple status easily
+    timeout: 30    
     check: default
     group: production

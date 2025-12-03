@@ -41,7 +41,7 @@ Installation (Bare Metal)
     ```
 2.  Install Dependencies
     ```bash
-    pip install fastapi uvicorn pyyaml aiohttp jinja2
+    pip install -r requirements.txt
     ´´´bash
 
 3. Start the server using Uvicorn:
