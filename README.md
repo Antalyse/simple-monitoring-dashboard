@@ -35,9 +35,9 @@ Installation
 
 1.  Clone the repository
 
-    git clone https://github.com/yourusername/sme-monitor.git
+    git clone https://github.com/Antalyse/simple-monitoring-dashboard.git
 
-    cd sme-monitor
+    cd simple-monitoring-dashboard
 
 2.  Install Dependencies
 
