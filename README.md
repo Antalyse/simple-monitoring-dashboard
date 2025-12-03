@@ -30,18 +30,31 @@ Features
 
 -   **API Endpoints:** Trigger checks manually via API (Single host, Group, or All).
 
-Installation
+Installation (Bare Metal)
 ------------
 
 1.  Clone the repository
-
+    ```bash
     git clone https://github.com/Antalyse/simple-monitoring-dashboard.git
 
     cd simple-monitoring-dashboard
-
+    ```
 2.  Install Dependencies
-
+    ```bash
     pip install fastapi uvicorn pyyaml aiohttp jinja2
+    ´´´bash
+
+3. Start the server using Uvicorn:
+    ```bash
+    uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    ```
+
+Docker
+------------
+
+´´´bash
+docker run -p 8000:8000 -v /your/local/config/folder:/app/config antalyse/simple-monitoring-dashboard
+```
 
 
 
@@ -100,12 +113,7 @@ systems:
 Usage
 -----
 
-Start the server using Uvicorn:
-
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-
--   **Dashboard:** Open `http://localhost:8000` in your browser.
-
+Open `http://localhost:8000` in your browser to see the dashboard.
 
 API Endpoints
 -------------

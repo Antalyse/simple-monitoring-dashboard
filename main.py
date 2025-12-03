@@ -14,7 +14,7 @@ templates = Jinja2Templates(directory="templates")
 # --- GLOBAL STATE ---
 CONFIG = {}
 SYSTEM_STATUS = {} 
-CONFIG_FILE = "config.yaml"
+CONFIG_FILE = "config/config.yaml"
 LAST_CONFIG_TIME = 0
 
 # Sort Order: Critical (0) -> Unknown (1) -> Warning (2) -> OK (3)
