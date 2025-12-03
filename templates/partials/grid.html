@@ -1,0 +1,25 @@
+<div id="status-grid" class="card-grid">
+    {% for sys in systems %}
+    <div class="card {{ sys.status }}">
+        <div class="card-body">
+            <span class="status-badge">{{ sys.status }}</span>
+            <h3>{{ sys.name }}</h3>
+            <p>{{ sys.description }}</p>
+            
+            <div class="meta">
+                <span style="color: #888;">{{ sys.message }}</span>
+                <span>{{ sys.latency }}ms</span>
+            </div>
+            <div class="meta">
+                <span>Group: <strong>{{ sys.group }}</strong></span>            
+            </div>
+            
+            <div class="actions">
+                <a href="{{ sys.docs }}" target="_blank" class="link">Docs ↗</a>
+                <a href="/check/now?target={{ sys.group }}&type=group" class="link">Check Group</a>
+                <a href="/check/now?target={{ sys.id }}&type=single" class="link">Check Now</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

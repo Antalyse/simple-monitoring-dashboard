@@ -1,0 +1,12 @@
+systems:
+  host01:
+    active: true
+    name: Google
+    description: Checks the main page of Google
+    docs: https://wiki.mycompany.com/host01
+    host: google.com
+    interval: 60
+    warning: 10  
+    timeout: 30    # Set low to test Purple status easily
+    check: default
+    group: production

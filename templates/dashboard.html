@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Monitor</title>
+    <style>
+        body { font-family: -apple-system, system-ui, sans-serif; background: #f4f4f9; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .btn { padding: 8px 15px; text-decoration: none; border-radius: 4px; font-size: 0.9em; }
+        .btn-primary { background: #007bff; color: white; }
+        
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        
+        .card { background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow: hidden; border-top: 5px solid #ccc; transition: all 0.3s ease; }
+        
+        /* --- STATUS COLORS --- */
+        .card.UP { border-top-color: #28a745; }
+        .card.DOWN { border-top-color: #dc3545; }
+        
+        /* Yellow for Warning */
+        .card.WARNING { border-top-color: #ffc107; } 
+        /* Purple for Unknown/Timeout */
+        .card.UNKNOWN { border-top-color: #6f42c1; } 
+        
+        .card.PENDING { border-top-color: #6c757d; }
+        .card.DISABLED { 
+            border-top-color: #d6d8db; 
+            opacity: 0.7; /* Make it look slightly faded */
+            background: #fdfdfd;
+        }
+        .card-body { padding: 15px; }
+        .status-badge { float: right; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.8em; }
+        
+        .UP .status-badge { background: #e6f9e9; color: #28a745; }
+        .DOWN .status-badge { background: #fde8e9; color: #dc3545; }
+        
+        /* Yellow Badge */
+        .WARNING .status-badge { background: #fff3cd; color: #856404; }
+        /* Purple Badge */
+        .UNKNOWN .status-badge { background: #f2e6ff; color: #6f42c1; }
+        
+        .PENDING .status-badge { background: #eee; color: #666; }
+        .DISABLED .status-badge { 
+            background: #e2e3e5; 
+            color: #6c757d; 
+        }        
+        h3 { margin: 0 0 5px 0; font-size: 1.1em; }
+        p { margin: 0; color: #666; font-size: 0.9em; }
+        .meta { margin-top: 15px; padding-top: 10px; border-top: 1px solid #eee; font-size: 0.85em; display: flex; justify-content: space-between; }
+        .actions { margin-top: 10px; text-align: right; }
+        .link { color: #007bff; text-decoration: none; margin-left: 10px; font-size: 0.85em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Monitoring Dashboard</h1>
+            <div>
+                
+                <a href="/check/now?target=all&type=all" class="btn btn-primary">Check all</a>
+            </div>
+        </div>
+
+        <div id="grid-container">
+            {% include 'partials/grid.html' %}
+        </div>
+    </div>
+
+    <script>
+        setInterval(async () => {
+            try {
+                const response = await fetch('/?content_only=true');
+                if (response.ok) {
+                    const newHtml = await response.text();
+                    document.getElementById('grid-container').innerHTML = newHtml;
+                }
+            } catch (error) {
+                console.error("Failed to refresh status", error);
+            }
+        }, 5000); 
+    </script>
+</body>
+</html>
