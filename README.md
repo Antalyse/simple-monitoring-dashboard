@@ -106,7 +106,6 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 -   **Dashboard:** Open `http://localhost:8000` in your browser.
 
--   **JSON Status:** Access `http://localhost:8000/api/status`.
 
 API Endpoints
 -------------
